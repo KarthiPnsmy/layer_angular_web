@@ -1,0 +1,11 @@
+{
+  "name": "layer-js-sampleapps-angularjs",
+  "version": "0.1.0",
+  "description": "Angularjs chat UI example using Layer SDK",
+  "scripts": {
+    "start": "http-server -a localhost"
+  },
+  "dependencies": {
+    "http-server": "~0.8.0"
+  }
+}

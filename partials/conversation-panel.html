@@ -1,0 +1,58 @@
+<div ng-controller="conversationCtrl">
+  <div class="panel-header">
+    <div class="title" >
+      <span ng-hide="chatCtrlState.currentConversation"> &larr; Create a new conversation or select a conversation from the list.</span>
+      <div class="title-inner"
+           ng-hide="editingTitle">
+        {{getConversationTitle(chatCtrlState.currentConversation)}}
+        <a href='#' class='edit-title-icon' title="Edit conversation title" ng-click='setEditTitle(true)'>
+          <i ng-show="chatCtrlState.currentConversation" class="fa fa-pencil"></i>
+        </a>
+      </div>
+
+      <div class="edit-title" ng-show="editingTitle">
+        <input type="text" ng-value="getConversationTitle(chatCtrlState.currentConversation)"
+               ng-enter="saveTitle()" ng-model='chatCtrlState.currentConversation.metadata.title'/>
+        <button ng-click="setEditTitle(false)" >Cancel</button>
+      </div>
+    </div>
+  </div>
+
+  <div class='message-list' ng-controller="messageListCtrl"
+      ng-hide="chatCtrlState.showUserList"
+      infinite-scroll="nextPage()" infinite-scroll-distance='2' >
+    <img ng-hide="chatCtrlState.currentConversation" class="layer-logo" src="http://static.layer.com/logo-only-black.svg" />
+    <div class="message-item" ng-repeat="message in data">
+      <!--<div class="avatar">{{getSenderInitials(message)}}</div> message.parts[0].body -->
+      <div class="message-content">
+        <span class='name'>{{getSenderDisplayName(message)}}</span>
+        <div class="message-parts">
+          <div class="bubble text" ng-if="renderTextMessage(message)">
+                {{message.parts[0].body}}
+          </div>
+            <div ng-if="renderMessage(message) && message.parts[0].url != null">
+                <audio controls>
+                 <source ng-src="{{audioUrl(message)}}" type="audio/mpeg">
+                  Your browser does not support the audio tag.
+                </audio>
+            </div>
+            <div ng-if="message.parts[0].url == null"> Error Fetching Audio</div>
+        </div>
+      </div>
+      <div class="timestamp">
+        {{getMessageDate(message)}}
+        <span class='message-status'>{{getMessageStatus(message)}}</span>
+      </div>
+    </div>
+  </div>
+
+  <div class='typing-indicator-panel' ng-hide="chatCtrlState.showUserList" ng-controller='typingIndicatorCtrl'>
+    {{getText()}}
+  </div>
+
+  <div class="message-composer" ng-show="chatCtrlState.currentConversation">
+    <input ng-enter="send()" ng-model='sendText' class="message-textarea" placeholder="Enter a message..." rows="1"></input>
+<!--    <img src="images/mic_icon.png" ng-click="startAudioRecording()" alt="Audio Record" width="50" height="50">-->
+   <button type="button" ng-click="startAudioRecording()">VOICE RECORD</button>
+  </div>
+</div>

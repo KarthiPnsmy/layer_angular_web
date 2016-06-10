@@ -1,0 +1,21 @@
+<div ng-controller='chatCtrl'>
+  <div class="messenger">
+    <div class="left-panel"
+         ng-controller="conversationListCtrl">
+
+        <div class="panel-header conversations-header"
+              ng-include="'partials/left-column-header.html'">
+        </div>
+        <div class="conversation-list"
+              ng-include="'partials/conversation-list.html'">
+        </div>
+    </div>
+
+    <div class="right-panel">
+      <div ng-include="'partials/conversation-panel.html'"
+           ng-hide="chatCtrlState.showUserList"></div>
+      <div ng-include="'partials/new-conversation-panel.html'"
+           ng-show="chatCtrlState.showUserList"></div>
+    </div>
+  </div>
+</div>

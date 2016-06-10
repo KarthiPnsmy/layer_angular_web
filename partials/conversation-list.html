@@ -1,0 +1,9 @@
+<a href="#{{conversation.id.substring(8)}}" class="participant" ng-class="{'unread-messages': conversation.unreadCount, 'selected-conversation': conversation.id === chatCtrlState.currentConversation.id}" ng-click="setConversation(conversation)" ng-repeat="conversation in query.data">
+ <div class="avatar cluster"><!-- <span ng-repeat="participant in getConversationAvatars(conversation)">{{participant}}</span>--></div>
+  <div class="info">
+    <div class="main">
+      <span class="title">{{getConversationTitle(conversation)}}</span>
+      <span class="delete fa fa-times-circle" title="Delete conversation" ng-click="deleteConversation(conversation)"></span>
+    </div>
+  </div>
+</a>

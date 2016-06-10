@@ -1,0 +1,25 @@
+<div ng-controller="newConversationCtrl">
+  <div class="panel-header">
+    <div class="title" >
+      <div class="new-title edit-title" ng-show="chatCtrlState.showUserList">
+        <input type="text" ng-enter="saveTitle()" ng-model="newTitle" placeholder="Conversation title..."/>
+      </div>
+    </div>
+  </div>
+
+  <div class='user-list' ng-controller='userListCtrl' ng-show="chatCtrlState.showUserList">
+    <div class="participant" ng-repeat="(key, value) in users">
+      <div class="avatar"></div>
+      <div class="info">
+        <div class="main">
+          <label for="{{'user-list-' + value}}" class="title">{{value}}</label>
+          <input id="{{'user-list-' + value}}" value={{key}} type='checkbox' name='userList' ng-click='updateTitle()' ng-model='ignored'/>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="message-composer">
+    <input ng-enter="send()" ng-model='sendText' class="message-textarea" placeholder="Enter a message..." rows="1"></input>
+  </div>
+</div>
