@@ -2,7 +2,6 @@
 'use strict';
 
 var controllers = angular.module('conversationPanelControllers', []);
-var videoStream = null;
 /**
  * The Conversation Controller manages:
  *
@@ -48,7 +47,7 @@ controllers.controller('conversationCtrl', ['$scope','$sce', function($scope, $s
         
         var messagePart2 = new layer.MessagePart({
             body: audioBlob,
-            mimeType: 'audio/3gp'
+            mimeType: 'audio/wav'
         });
 
         var message = conversationInstance.createMessage({ parts: [messagePart2, messagePart1] });
@@ -78,7 +77,7 @@ controllers.controller('conversationCtrl', ['$scope','$sce', function($scope, $s
         if (conversation) {
           conversation.on('conversations:change', function() {
             $scope.chatCtrlState.currentConversation = conversation.toObject();
-            $scope.$digest();
+            //$scope.$digest();
           }, this);
         }
       }
@@ -102,6 +101,7 @@ controllers.controller('conversationCtrl', ['$scope','$sce', function($scope, $s
    * Atart Audio Recording
    */
   $scope.startAudioRecording = function() {
+      /*
       // Test browser support
       //window.navigator = window.navigator || {};
       navigator.getUserMedia = navigator.getUserMedia       ||
@@ -120,15 +120,13 @@ controllers.controller('conversationCtrl', ['$scope','$sce', function($scope, $s
                            null;
       
       console.log("audioContext = "+audioContext);
-      
+      */
         // Capture user's audio and video source
           navigator.getUserMedia({
-            video: true,
+            video: false,
             audio: true
           },
           function(stream) {
-            videoStream = stream;
-            //Stream the data
             console.log("stream = "+stream);
             var recordAudio = RecordRTC(stream, {type: 'audio'});
 

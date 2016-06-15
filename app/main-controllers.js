@@ -188,7 +188,7 @@ sampleControllers.controller('conversationListCtrl', function ($scope, $rootScop
        * * Any Conversation in the results has a change of metadata or participants
        */
       $scope.query.on('change', function() {
-        $rootScope.$digest();
+        //$rootScope.$digest();
       });
     }
   }, this);
